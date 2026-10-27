@@ -1,0 +1,13 @@
+// BEGRITZ 1.0: shared motion and scrolling; respect the operating system's reduced-motion preference.
+(()=>{const previous=new Map(),sizes=new WeakMap();let resizer;const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+function groups(){return [{element:document.querySelector('#navigation'),selector:'a.active',key:'nav',vertical:true},...[...document.querySelectorAll('.filters')].filter(e=>e.querySelector('button')).map((element,i)=>({element,selector:'button.selected',key:element.querySelector('[data-timeline-category]')?'timeline':'filter-'+i,vertical:false}))]}
+function measure(item){const active=item.element?.querySelector(item.selector);return active?{x:active.offsetLeft,y:active.offsetTop,width:active.offsetWidth,height:active.offsetHeight}:null}
+function setPosition(el,p,v){el.style.width=p.width+'px';el.style.height=p.height+'px';el.style.transform=`translate(${v?0:p.x}px,${v?p.y:0}px)`}
+function beforeRender(){resizer?.disconnect();for(const item of groups()){const pos=measure(item);if(pos)previous.set(item.key,pos)}}
+function afterRender(){resizer=new ResizeObserver(entries=>{const changed=entries.some(entry=>{const old=sizes.get(entry.target),now={width:entry.contentRect.width,height:entry.contentRect.height};sizes.set(entry.target,now);return old&&(Math.abs(old.width-now.width)>1||Math.abs(old.height-now.height)>1)});if(!changed)return;for(const item of groups()){const indicator=item.element?.querySelector(':scope > .motion-indicator'),pos=measure(item);if(indicator&&pos)setPosition(indicator,pos,item.vertical)}});for(const item of groups()){if(!item.element)continue;item.element.classList.add('motion-group');const pos=measure(item);if(!pos)continue;const indicator=document.createElement('span');indicator.className='motion-indicator';indicator.setAttribute('aria-hidden','true');item.element.prepend(indicator);indicator.style.transition='none';setPosition(indicator,previous.get(item.key)||pos,item.vertical);void indicator.offsetWidth;requestAnimationFrame(()=>{if(!indicator.isConnected)return;indicator.style.transition=reduced()?'none':'';setPosition(indicator,pos,item.vertical)});sizes.delete(item.element);resizer.observe(item.element)}}
+window.BEGRITZUI={beforeRender,afterRender};afterRender();
+const button=document.querySelector('#back-to-top'),marker=document.createElement('span');marker.className='top-marker';marker.setAttribute('aria-hidden','true');document.body.prepend(marker);
+new IntersectionObserver(([entry])=>{button.hidden=entry.isIntersecting||entry.boundingClientRect.top>=0},{threshold:0}).observe(marker);
+button.addEventListener('click',()=>window.scrollTo({top:0,behavior:reduced()?'auto':'smooth'}));
+})();
+
