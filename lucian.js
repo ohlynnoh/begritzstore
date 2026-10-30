@@ -18,7 +18,7 @@
     out: '<path d="M12 15V4M8 8l4-4 4 4M5 14v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5"/>'
   };
   var DATA=[];
-  function refreshData(){DATA=[...MEMBERS.map(m=>({g:'成員',n:m.name+' '+m.heart,keywords:[m.english,m.full,m.alias,m.birthday,m.mbti,m.role,m.motto].join(' '),ic:'user',route:'/member/'+m.id})),...live().map(r=>({g:'資料',n:r.title,keywords:r.body.split('\n\n資料來源\n')[0],ic:'doc',route:'/entry/'+r.id})),{g:'導覽',n:'時間軸',ic:'doc',route:'/timeline'},{g:'導覽',n:'全部資料',ic:'doc',route:'/search'}];}
+  function refreshData(){DATA=[...MEMBERS.map(m=>({g:'成員',n:m.name+' '+m.heart,keywords:[m.english,m.full,m.alias,m.birthday,m.mbti,m.role,m.motto].join(' '),ic:'user',route:'/member/'+m.id})),...live().map(r=>({g:'資料',n:r.title,keywords:r.body.split('\n\n資料來源\n')[0],ic:'doc',route:'/entry/'+r.id})),{g:'團體',n:'團體介紹與成員組合',keywords:window.BEGRITZ_DATA.group,ic:'doc',route:'/group'},{g:'導覽',n:'時間軸',ic:'doc',route:'/timeline'},{g:'導覽',n:'全部資料',ic:'doc',route:'/search'}];}
   var opts = [], act = 0, closed = true, doneT = 0;
   function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function hit(name, q) {
@@ -61,10 +61,10 @@
     if (!opts[act]) return;
     var name = opts[act].getAttribute('data-n');
     if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)opts[act].animate([{ transform: 'scale(.97)' }, { transform: 'none' }], { duration: 260, easing: 'ease-out' });
-    var destination=DATA.find(d=>d.n===name);done.textContent = '開啟 '+name;
+    var searchQuery=input.value.trim();var destination=DATA.find(d=>d.n===name);done.textContent = '開啟 '+name;
     done.classList.add('show');
     clearTimeout(doneT);
-    doneT = setTimeout(function () { if (root.isConnected) {setClosed(true);if(destination)location.hash=destination.route;} }, 650);
+    doneT = setTimeout(function () { if (root.isConnected) {setClosed(true);if(destination)location.hash=destination.route+(searchQuery?'?q='+encodeURIComponent(searchQuery):'');} }, 650);
   }
   function setClosed(v) {
     closed = v;
@@ -112,7 +112,7 @@ window.mountArchiveTabs=function () {
   function make(i) {
     var ul = document.createElement('ul');
     ul.className = 'u039-list';
-    ul.innerHTML=DATA[i].map(function(r,k){var member=MEMBERS.find(m=>r.members.includes(m.id));var art=member?'<img src="assets/members/'+member.id+'-0.jpg" alt="" width="52" height="52">':'<span class="archive-event-mark" aria-hidden="true">↗</span>';return '<li class="u039-row" tabindex="0" role="link" data-entry="'+esc(r.id)+'" style="transition-delay:'+(k*45)+'ms"><span class="u039-art" style="--g:var(--ux-surface-2)">'+art+'</span><span class="archive-row-copy"><b>'+esc(r.title)+'</b><small>'+esc(typeName(r.type))+'</small></span><em>'+esc(r.date.slice(5).replace('-','.'))+'</em></li>'}).join('');ul.querySelectorAll('[data-entry]').forEach(row=>{row.addEventListener('click',()=>location.hash='/entry/'+row.dataset.entry);row.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();location.hash='/entry/'+row.dataset.entry}})});
+    ul.innerHTML=DATA[i].map(function(r,k){var member=MEMBERS.find(m=>r.members.includes(m.id));var art=member?'<img src="assets/members/'+member.id+'-0.jpg" alt="" width="52" height="52">':'<span class="archive-event-mark" aria-hidden="true">↗</span>';return '<li class="u039-row" tabindex="0" role="link" data-entry="'+esc(r.id)+'" style="transition-delay:'+(k*45)+'ms"><span class="u039-art" style="--g:var(--ux-surface-2)">'+art+'</span><span class="archive-row-copy"><b>'+esc(r.title)+'</b><small>'+esc(typeName(r.type))+'</small></span><em>'+esc(displayDate(r.date))+'</em></li>'}).join('');ul.querySelectorAll('[data-entry]').forEach(row=>{row.addEventListener('click',()=>location.hash='/entry/'+row.dataset.entry);row.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();location.hash='/entry/'+row.dataset.entry}})});
     return ul;
   }
   function select(i, focus) {
