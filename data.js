@@ -14,9 +14,10 @@ window.BEGRITZ_DATA = {
       "first": "三、DOHA",
       "second": "六、DOHA",
       "alias": "白道河 (非官方音譯)",
-      "height": "",
-      "profileUpdated": "2026-11-12T08:08:35.884Z",
-      "tags": "리더／隊長；겉바속촉💜／外剛內柔 🕯️"
+      "height": "183 公分",
+      "profileUpdated": "2026-11-12T08:40:43.804Z",
+      "tags": "리더／隊長；겉바속촉💜／外剛內柔 🕯️",
+      "zodiac": "獅子座"
     },
     {
       "id": "chan",
@@ -26,15 +27,16 @@ window.BEGRITZ_DATA = {
       "english": "MOON CHAN",
       "birthday": "6月21日",
       "mbti": "ISTJ",
-      "height": "185 公分（本人自述）",
+      "height": "185 公分",
       "role": "Rap",
       "motto": "我是會成功的人",
       "episode": "EP02",
       "first": "二、MOON CHAN",
       "second": "五、MOON CHAN",
       "alias": "文燦 (非官方音譯)",
-      "profileUpdated": "2026-11-12T08:08:35.884Z",
-      "tags": "래퍼／饒舌歌手；피카찬🧡／皮卡燦 🏈"
+      "profileUpdated": "2026-11-12T08:40:43.804Z",
+      "tags": "래퍼／饒舌歌手；피카찬🧡／皮卡燦 🏈",
+      "zodiac": "雙子座"
     },
     {
       "id": "rubin",
@@ -50,9 +52,10 @@ window.BEGRITZ_DATA = {
       "first": "一、LUBIN",
       "second": "二、LUBIN",
       "alias": "李魯冰 (非官方音譯)",
-      "height": "175 公分（本人自述）",
-      "profileUpdated": "2026-11-12T08:08:35.884Z",
-      "tags": "얼초🩵 🎐"
+      "height": "175 公分",
+      "profileUpdated": "2026-11-12T08:40:43.804Z",
+      "tags": "얼초🩵 🎐",
+      "zodiac": "牡羊座"
     },
     {
       "id": "sinui",
@@ -68,9 +71,10 @@ window.BEGRITZ_DATA = {
       "first": "五、SINI",
       "second": "四、SINI",
       "alias": "柳信義 (非官方音譯)",
-      "height": "",
-      "profileUpdated": "2026-11-12T08:08:35.884Z",
-      "tags": "보컬／歌唱擔當；플러팅 장인💚／調情高手🔒"
+      "height": "179 公分",
+      "profileUpdated": "2026-11-12T08:40:43.804Z",
+      "tags": "보컬／歌唱擔當；플러팅 장인💚／調情高手🔒",
+      "zodiac": "射手座"
     },
     {
       "id": "taebeom",
@@ -86,9 +90,10 @@ window.BEGRITZ_DATA = {
       "first": "四、TAEBUM",
       "second": "三、TAEBUM",
       "alias": "尹泰範 (非官方音譯)",
-      "height": "",
-      "profileUpdated": "2026-11-12T08:08:35.884Z",
-      "tags": "보컬／歌唱擔當；달달 막내🩶／甜甜老么🪞"
+      "height": "180 公分",
+      "profileUpdated": "2026-11-12T08:40:43.804Z",
+      "tags": "보컬／歌唱擔當；달달 막내🩶／甜甜老么🪞",
+      "zodiac": "天蠍座"
     }
   ],
   "records": [
